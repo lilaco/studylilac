@@ -9,8 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -27,7 +26,8 @@ class AccountControllerTest {
                 .andDo(print())
                 //andDo(print()) 를 통하여 View 까지도 test 가능하다 (test message 에 HTML log 로 남는다.)
                 .andExpect(status().isOk())
-                .andExpect(view().name("account/sign-up"));
+                .andExpect(view().name("account/sign-up"))
+                .andExpect(model().attributeExists("signUpForm"));
 
         //MockMvc 를 이용하여 테스트를 실시
         //status() -> HTTP 상태 코드를 검증한다.
